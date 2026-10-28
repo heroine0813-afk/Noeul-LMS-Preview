@@ -1,0 +1,7 @@
+// Self-contained preview-only interactions. Production React handlers live in src/main.tsx.
+document.addEventListener('DOMContentLoaded',function(){
+  const toggle=document.querySelector('.menu-toggle');
+  if(toggle){toggle.addEventListener('click',function(){const nav=document.querySelector('.nav');const next=!nav.classList.contains('nav--open');nav.classList.toggle('nav--open',next);toggle.setAttribute('aria-expanded',String(next));toggle.setAttribute('aria-label',next?'메뉴 닫기':'메뉴 열기');toggle.innerHTML=next?'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 5 19 19M19 5 5 19"/></svg>':'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'});document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',()=>{document.querySelector('.nav').classList.remove('nav--open');toggle.setAttribute('aria-expanded','false')}));document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelector('.nav').classList.remove('nav--open');toggle.setAttribute('aria-expanded','false')}})}
+  const filters=[...document.querySelectorAll('.filter')];const cards=[...document.querySelectorAll('.service-card')];
+  filters.forEach((btn,i)=>btn.addEventListener('click',()=>{filters.forEach(b=>b.classList.remove('active'));btn.classList.add('active');cards.forEach((card,j)=>{card.style.display=i===0||i-1===j?'':'none'});}));
+});
